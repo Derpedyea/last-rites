@@ -2,11 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "SS",
-    "SS"
+    "SSS",
+    "SCS",
+    "SSS"
   ],
   "key": {
-    "S": "reliable_requiem:crystal_shard"
+    "S": "reliable_requiem:crystal_shard",
+    "C": "minecraft:ghast_tear"
   },
   "result": {
     "count": 1,

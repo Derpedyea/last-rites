@@ -39,9 +39,11 @@ Customize the exact state the player is in when they return to life:
   respawning.
 * **Health Reduction on Death:** Configurable maximum health loss upon death down to a set minimum limit to encourage a
   more cautious playstyle.
-* **Crystal Hearts & Shards:** Restore lost maximum health capacity using **Crystal Hearts**. Breaking Mob Spawners
-  drops **Crystal Shards**, 4 of which craft into a Crystal Heart. Right-clicking a Crystal Heart permanently
-  increases max health by +1 heart up to a configurable maximum limit.
+* **Crystals & Shards:** Breaking Mob Spawners drops **Crystal Shards**. Surround a Ghast Tear with 8 shards to craft
+  a **Heart Crystal**, which permanently increases max health by +1 heart when used, up to a configurable maximum limit.
+* **Stamina Crystals (Modest Meals):** With Modest Meals installed, surround Redstone with 8 shards to craft a
+  **Stamina Crystal**, which permanently increases max stamina by +1 bolt. Max stamina carries over through death and
+  can optionally be reduced on death, just like max health.
 * **Health Scaling:** Respawn with a percentage of your maximum health or set a hard cap on respawn health.
 * **Status Effects:** Configurable options to let positive or negative potion effects persist through death.
 * **Experience Tweaks:** Control the exact percentage of XP lost, how much drops per level, and the maximum dropped XP.

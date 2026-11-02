@@ -2,12 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "SS",
-    "SS"
+    "SSS",
+    "SCS",
+    "SSS"
   ],
   "key": {
     "S": {
       "item": "reliable_requiem:crystal_shard"
+    },
+    "C": {
+      "item": "minecraft:ghast_tear"
     }
   },
   "result": {

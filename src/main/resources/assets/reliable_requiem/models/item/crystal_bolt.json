@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reliable_requiem:item/crystal_bolt"
+  }
+}

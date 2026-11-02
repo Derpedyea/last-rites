@@ -77,7 +77,14 @@ public class ModConfig {
     public double crystalHeartHealthAmount = 2.0;
     public boolean enableSpawnerShardDrop = true;
     public double spawnerShardDropChance = 1.0;
-    public int spawnerShardDropCount = 1;
+    public int spawnerShardDropCount = 2;
+
+    // Stamina Settings (Modest Meals)
+    public boolean enableStaminaReductionOnDeath = false;
+    public double staminaLossPerDeath = 2.0;
+    public double minStaminaCapacity = 10.0;
+    public double maxStaminaCapacity = 30.0;
+    public double crystalBoltStaminaAmount = 2.0;
 
     // Miscellaneous Settings
     public boolean restrictRespawning = false;

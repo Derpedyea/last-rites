@@ -1,5 +1,6 @@
 package com.evandev.reliable_requiem.config;
 
+import com.evandev.reliable_requiem.compat.ModestMealsCompat;
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.ListOption;
 import dev.isxander.yacl3.api.Option;
@@ -77,6 +78,13 @@ public class YaclConfigIntegration {
         healthAndSpawn.option(intField("spawnerShardDropCount", defaults.spawnerShardDropCount, 1, 64, () -> config.spawnerShardDropCount, val -> config.spawnerShardDropCount = val));
         healthAndSpawn.option(intField("respawnRandomRadius", defaults.respawnRandomRadius, 0, Integer.MAX_VALUE, () -> config.respawnRandomRadius, val -> config.respawnRandomRadius = val));
 
+        ConfigCategory.Builder stamina = category("stamina");
+        stamina.option(bool("enableStaminaReductionOnDeath", defaults.enableStaminaReductionOnDeath, () -> config.enableStaminaReductionOnDeath, val -> config.enableStaminaReductionOnDeath = val));
+        stamina.option(doubleField("staminaLossPerDeath", defaults.staminaLossPerDeath, 0.0, Double.MAX_VALUE, () -> config.staminaLossPerDeath, val -> config.staminaLossPerDeath = val));
+        stamina.option(doubleField("minStaminaCapacity", defaults.minStaminaCapacity, 2.0, Double.MAX_VALUE, () -> config.minStaminaCapacity, val -> config.minStaminaCapacity = val));
+        stamina.option(doubleField("maxStaminaCapacity", defaults.maxStaminaCapacity, 2.0, Double.MAX_VALUE, () -> config.maxStaminaCapacity, val -> config.maxStaminaCapacity = val));
+        stamina.option(doubleField("crystalBoltStaminaAmount", defaults.crystalBoltStaminaAmount, 0.5, Double.MAX_VALUE, () -> config.crystalBoltStaminaAmount, val -> config.crystalBoltStaminaAmount = val));
+
         ConfigCategory.Builder memento = category("memento_mori");
         memento.option(bool("applyMementoMori", defaults.applyMementoMori, () -> config.applyMementoMori, val -> config.applyMementoMori = val));
         memento.option(intField("mementoDuration", defaults.mementoDuration, 0, Integer.MAX_VALUE, () -> config.mementoDuration, val -> config.mementoDuration = val));
@@ -87,14 +95,18 @@ public class YaclConfigIntegration {
         misc.option(bool("restrictRespawning", defaults.restrictRespawning, () -> config.restrictRespawning, val -> config.restrictRespawning = val));
         misc.option(bool("displayDeathCoordinates", defaults.displayDeathCoordinates, () -> config.displayDeathCoordinates, val -> config.displayDeathCoordinates = val));
 
-        return YetAnotherConfigLib.createBuilder()
+        YetAnotherConfigLib.Builder builder = YetAnotherConfigLib.createBuilder()
                 .title(Component.translatable(PREFIX + "title"))
                 .category(general.build())
                 .category(hunger.build())
                 .category(experience.build())
                 .category(inventory.build())
                 .category(effects.build())
-                .category(healthAndSpawn.build())
+                .category(healthAndSpawn.build());
+        if (ModestMealsCompat.isLoaded()) {
+            builder.category(stamina.build());
+        }
+        return builder
                 .category(memento.build())
                 .category(misc.build())
                 .save(ModConfig::save)

@@ -2,6 +2,7 @@ package com.evandev.reliable_requiem.modules;
 
 import com.evandev.reliable_requiem.Constants;
 import com.evandev.reliable_requiem.api.IPlayerKeptItems;
+import com.evandev.reliable_requiem.compat.ModestMealsCompat;
 import com.evandev.reliable_requiem.config.ModConfig;
 import com.evandev.reliable_requiem.platform.Services;
 import net.minecraft.core.BlockPos;
@@ -93,6 +94,19 @@ public class RequiemModules {
             }
             newMaxHealthAttr.setBaseValue(currentMax);
             Services.PLATFORM.updateHeartCrystalsHealth(newPlayer, currentMax);
+        }
+
+        // Stamina Module (Modest Meals)
+        if (ModestMealsCompat.isLoaded()) {
+            AttributeInstance oldStaminaAttr = ModestMealsCompat.getStaminaCapacity(original);
+            AttributeInstance newStaminaAttr = ModestMealsCompat.getStaminaCapacity(newPlayer);
+            if (oldStaminaAttr != null && newStaminaAttr != null) {
+                double capacity = oldStaminaAttr.getBaseValue();
+                if (config.enableStaminaReductionOnDeath) {
+                    capacity = Math.max(config.minStaminaCapacity, Math.min(config.maxStaminaCapacity, capacity - config.staminaLossPerDeath));
+                }
+                newStaminaAttr.setBaseValue(capacity);
+            }
         }
 
         double maxHealth = newPlayer.getMaxHealth();

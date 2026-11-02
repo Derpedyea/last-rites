@@ -1,12 +1,15 @@
 ### Added
 
-- Ported to 26.3.
-- Added `minKeptDurability` config option to set the minimum durability percentage kept items can be reduced to by death
-  durability loss.
-- Added `allowDurabilityBreak` config option to toggle whether death durability loss can break kept items (default
-  `true`).
+- Added compatibility with (the currently unreleased) Modest Meals.
+    - Added the Stamina Crystal, crafted from 8 Crystal Shards surrounding Redstone.
+        - Using one permanently increases max stamina by 1 bolt, up to a configurable limit.
+        - Only available when Modest Meals is installed.
+    - Max stamina is now kept through death.
+    - Added a Stamina config category.
 
-### Fixed
+### Changed
 
-- Fixed the accessories screen desyncing after death when a kept accessory adds extra slots, which could also kick players from servers.
-- Fixed Curios slots being handled twice on death when the Accessories Compatibility Layer is installed.
+- Renamed Crystal Hearts to Heart Crystals. Existing items are kept.
+- Heart Crystals are now crafted from 8 Crystal Shards surrounding a Ghast Tear.
+- Mob spawners now drop 2 Crystal Shards by default (previously 1).
+- Updated the Heart Crystal and Crystal Shard textures (@Baisylia).
