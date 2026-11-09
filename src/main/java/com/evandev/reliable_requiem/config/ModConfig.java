@@ -86,6 +86,12 @@ public class ModConfig {
     public double maxStaminaCapacity = 30.0;
     public double crystalBoltStaminaAmount = 2.0;
 
+    // Corpse Settings (Last Rites)
+    public boolean corpsesEnabled = true;
+    // Seconds only the owner can open their corpse; 0 = anyone right away, -1 = only ever the owner.
+    public int corpseLockSeconds = 1800;
+    public boolean corpseOpsBypassLock = true;
+
     // Miscellaneous Settings
     public boolean restrictRespawning = false;
     public int respawnRandomRadius = 0;

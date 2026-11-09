@@ -6,8 +6,12 @@
   "mixins": [
     "BlockMixin",
     "ExperienceOrbMixin",
+    "InteractionAccessor",
+    "InteractionMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
+    "MannequinAccessor",
+    "MannequinMixin",
     "PlayerMixin",
     "ServerPlayerMixin"
   ],

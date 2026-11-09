@@ -17,6 +17,7 @@ import com.evandev.reliable_requiem.compat.TrinketsUpdatedCompat;
 //?}
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 //? if fabric {
 import net.fabricmc.api.EnvType;
@@ -89,6 +90,18 @@ public class Services {
             CuriosCompat.handleAccessoryDeath(player);
         }
         *///?}
+    }
+
+    /**
+     * Puts an item from a corpse back into the accessory slot {@code home} it came from. Returns false if it can't.
+     */
+    public boolean equipAccessory(ServerPlayer player, String home, ItemStack stack) {
+        //? if >=26.1 {
+        if (isModLoaded("trinkets_updated")) {
+            return TrinketsUpdatedCompat.equip(player, home, stack);
+        }
+        //?}
+        return false;
     }
 
     /**

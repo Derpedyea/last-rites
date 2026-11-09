@@ -1,5 +1,7 @@
 package com.evandev.reliable_requiem.modules;
 
+import com.evandev.reliable_requiem.corpse.Corpses;
+
 import com.evandev.reliable_requiem.Constants;
 import com.evandev.reliable_requiem.api.IPlayerKeptItems;
 import com.evandev.reliable_requiem.compat.ModestMealsCompat;
@@ -258,6 +260,15 @@ public class RequiemModules {
     }
 
     public static void dropDeathItem(Player player, ItemStack stack) {
+        dropDeathItem(player, stack, null);
+    }
+
+    /**
+     * Drops an item on death, or puts it in the player's corpse when corpses are on. {@code home} is the slot it came
+     * from ({@code inv:<index>} or an accessory slot key), used to put it back there later.
+     */
+    public static void dropDeathItem(Player player, ItemStack stack, String home) {
+        if (Corpses.collect(player, home, stack)) return;
         //? if >=26.3 {
         ItemEntity itemEntity = player.createItemStackToDrop(stack, true, false);
         if (itemEntity != null) {

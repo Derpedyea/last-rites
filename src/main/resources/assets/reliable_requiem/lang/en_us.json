@@ -1,9 +1,17 @@
 {
-  "config.reliable_requiem.title": "Reliable Requiem Configuration",
+  "config.reliable_requiem.title": "Last Rites Configuration",
 
   "config.reliable_requiem.category.general": "General Settings",
   "config.reliable_requiem.enabled": "Enable Mod",
-  "config.reliable_requiem.enabled.tooltip": "Toggles whether all Reliable Requiem features are active.",
+  "config.reliable_requiem.enabled.tooltip": "Toggles whether all death penalty features are active. Corpses have their own switch.",
+
+  "config.reliable_requiem.category.corpses": "Corpses",
+  "config.reliable_requiem.corpsesEnabled": "Enable Corpses",
+  "config.reliable_requiem.corpsesEnabled.tooltip": "If enabled, items and experience dropped on death are kept in a corpse where you died instead of spilling on the ground. Right-click it to open, sneak + right-click to put everything back in its slot.",
+  "config.reliable_requiem.corpseLockSeconds": "Corpse Lock Time",
+  "config.reliable_requiem.corpseLockSeconds.tooltip": "Seconds (of game time) only the owner can open their corpse. 0 lets anyone open it right away, -1 keeps it owner-only forever.",
+  "config.reliable_requiem.corpseOpsBypassLock": "Operators Bypass Lock",
+  "config.reliable_requiem.corpseOpsBypassLock.tooltip": "If enabled, server operators can open any corpse.",
 
   "config.reliable_requiem.category.hunger": "Hunger",
   "config.reliable_requiem.keepFood": "Keep Food Level",
@@ -130,5 +138,9 @@
   "message.reliable_requiem.max_stamina_limit_reached": "Your stamina is already full.",
   "tag.item.reliable_requiem.retained_on_death": "Retained on Death",
   "text.reliable_requiem.death_coords": "Coordinates: X: %d, Y: %d, Z: %d",
-  "effect.reliable_requiem.memento_mori": "Memento Mori"
+  "effect.reliable_requiem.memento_mori": "Memento Mori",
+
+  "entity.last_rites.corpse": "%s's corpse",
+  "message.last_rites.corpse_locked": "%s's corpse unlocks in %s",
+  "message.last_rites.corpse_owner_only": "Only %s can open this corpse"
 }

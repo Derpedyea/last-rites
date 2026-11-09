@@ -2,6 +2,7 @@ package com.evandev.reliable_requiem.mixin;
 
 import com.evandev.reliable_requiem.CommonClass;
 import com.evandev.reliable_requiem.api.IPlayerKeptItems;
+import com.evandev.reliable_requiem.corpse.Corpses;
 import com.evandev.reliable_requiem.modules.RequiemModules;
 import com.evandev.reliable_requiem.platform.Services;
 import net.minecraft.core.BlockPos;
@@ -184,7 +185,7 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
                         inv.setItem(i, ItemStack.EMPTY);
                     }
                 } else {
-                    RequiemModules.dropDeathItem(player, stack);
+                    RequiemModules.dropDeathItem(player, stack, "inv:" + i);
                     inv.setItem(i, ItemStack.EMPTY);
                 }
             }
@@ -341,6 +342,6 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
     *///?}
         Player player = (Player) (Object) this;
         int originalDrop = cir.getReturnValue();
-        cir.setReturnValue(CommonClass.onExperienceDrop(player, originalDrop));
+        cir.setReturnValue(Corpses.collectXp(player, CommonClass.onExperienceDrop(player, originalDrop)));
     }
 }

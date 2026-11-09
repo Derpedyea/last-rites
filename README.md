@@ -1,17 +1,34 @@
-# Reliable Requiem
+# Last Rites
 
-<a href='https://files.minecraftforge.net'><img alt="forge" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/forge_vector.svg"></a>
 <a href='https://fabricmc.net'><img alt="fabric" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg"></a>
-<a href='https://neoforged.net/'><img alt="neoforge" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/neoforge_vector.svg"></a>
 
-## About
+When you die, your items stay on your corpse instead of spilling on the ground.
 
-**Reliable Requiem** is a highly configurable death penalty and death recovery mod, based on the features
-of [Corpse Complex](https://modrinth.com/mod/corpse-complex) for 1.16.5. It gives modpack
-makers and players control over exactly what happens when you die, from inventory management to respawn
-conditions, offering a customizable alternative to the `keepInventory` gamerule.
+Last Rites is a fork of [Reliable Requiem](https://github.com/evanbones/Reliable-Requiem) by Evan, itself a rewrite of
+[Corpse Complex](https://modrinth.com/mod/corpse-complex). It keeps all of Reliable Requiem's configurable death
+penalties and adds corpses. It targets **Minecraft 26.3 on Fabric** only.
 
-## Features
+![A corpse lying where its player died](docs/images/corpse.png)
+
+## Corpses
+
+* **Where you fell:** whatever Reliable Requiem doesn't let you keep goes into a corpse wearing your skin, lying where
+  you died. Your dropped experience goes into it too.
+* **Right-click** to open it. Items are laid out like your inventory: main rows, hotbar, armor and offhand, then
+  accessories on the bottom row.
+* **Sneak + right-click** puts everything back into the slot it came from, including armor and
+  [Trinkets](https://modrinth.com/mod/trinkets-updated) slots. Anything that doesn't fit goes into your inventory, or
+  drops if that's full.
+* **Safe:** corpses can't be hurt, pushed or burned and never despawn. They float where you died (in water, in the air).
+  Die in the void and the corpse lies on the top block of that column instead. An empty corpse disappears.
+* **Locked to you** for 30 minutes of game time, then anyone can open it. Server operators can always open corpses.
+* Corpses are vanilla mannequins plus a vanilla interaction entity over the body (so it's easy to click), so they
+  need nothing extra on the client to render.
+* If a corpse is killed anyway (a creative player, `/kill`), it drops everything it holds.
+
+![The corpse inventory](docs/images/corpse_gui.png)
+
+## Death penalties (from Reliable Requiem)
 
 ### Inventory Control
 
@@ -62,18 +79,36 @@ reduces movement speed and attack damage. The duration and severity of the debuf
 
 ## Configuration
 
-Reliable Requiem includes optional [YACL](https://modrinth.com/mod/yacl) integration so you can tweak
-almost every aspect of the mod in-game and instantly apply your changes.
+Settings live in `config/last_rites.json`. With [YACL](https://modrinth.com/mod/yacl) installed you can also change
+them in-game. Corpse settings:
+
+| Setting | Default | |
+| --- | --- | --- |
+| `corpsesEnabled` | `true` | Off: death drops behave exactly like Reliable Requiem. |
+| `corpseLockSeconds` | `1800` | Game-time seconds only the owner can open a corpse. `0` = anyone right away, `-1` = owner only, forever. |
+| `corpseOpsBypassLock` | `true` | Operators can open any corpse. |
+
+With `keepInventory` on there's nothing to drop, so no corpse is made.
 
 ## Credits
 
 Thanks to the excellent [Matcha Flavoured](https://modrinth.com/datapack/matcha-flavoured) datapack for the Crystal
 Heart idea and assets. Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
+## Differences from Reliable Requiem
+
+* Adds corpses (above).
+* Mod id `last_rites`, config file `config/last_rites.json`. Items and effects keep the `reliable_requiem:` ids, so a world
+  that used Reliable Requiem keeps them. Don't install both.
+* Builds only the 26.3 Fabric target.
+
+## Building
+
+```sh
+./gradlew :26.3-fabric:build
+# -> versions/26.3-fabric/build/libs/last_rites-<version>+26.3-fabric.jar
+```
+
 ## License
 
-[![Code license (GPL-3.0)](https://img.shields.io/badge/code%20license-%20GNU%20GPLv3-green.svg?style=flat-square)](https://github.com/evanbones/Reliable-Requiem/blob/26.1/LICENSE)
-
----
-
-[![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.com/invite/JcGRdT6Pbx) [![github-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/github-plural_vector.svg)](https://github.com/evanbones/Reliable-Requiem)
+GPL-3.0, like Reliable Requiem. See [LICENSE](LICENSE).

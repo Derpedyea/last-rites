@@ -91,6 +91,11 @@ public class YaclConfigIntegration {
         memento.option(doubleField("mementoSpeedModifier", defaults.mementoSpeedModifier, -Double.MAX_VALUE, Double.MAX_VALUE, () -> config.mementoSpeedModifier, val -> config.mementoSpeedModifier = val));
         memento.option(doubleField("mementoDamageModifier", defaults.mementoDamageModifier, -Double.MAX_VALUE, Double.MAX_VALUE, () -> config.mementoDamageModifier, val -> config.mementoDamageModifier = val));
 
+        ConfigCategory.Builder corpses = category("corpses");
+        corpses.option(bool("corpsesEnabled", defaults.corpsesEnabled, () -> config.corpsesEnabled, val -> config.corpsesEnabled = val));
+        corpses.option(intField("corpseLockSeconds", defaults.corpseLockSeconds, -1, Integer.MAX_VALUE, () -> config.corpseLockSeconds, val -> config.corpseLockSeconds = val));
+        corpses.option(bool("corpseOpsBypassLock", defaults.corpseOpsBypassLock, () -> config.corpseOpsBypassLock, val -> config.corpseOpsBypassLock = val));
+
         ConfigCategory.Builder misc = category("miscellaneous");
         misc.option(bool("restrictRespawning", defaults.restrictRespawning, () -> config.restrictRespawning, val -> config.restrictRespawning = val));
         misc.option(bool("displayDeathCoordinates", defaults.displayDeathCoordinates, () -> config.displayDeathCoordinates, val -> config.displayDeathCoordinates = val));
@@ -98,6 +103,7 @@ public class YaclConfigIntegration {
         YetAnotherConfigLib.Builder builder = YetAnotherConfigLib.createBuilder()
                 .title(Component.translatable(PREFIX + "title"))
                 .category(general.build())
+                .category(corpses.build())
                 .category(hunger.build())
                 .category(experience.build())
                 .category(inventory.build())
