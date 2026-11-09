@@ -14,6 +14,7 @@ public class ReliableRequiemMod implements ModInitializer {
         CommonClass.init();
         ModEffects.load();
         ModItems.load();
+        CorpseNetworking.register();
 
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> CommonClass.onPlayerClone(oldPlayer, newPlayer, !alive));
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> CommonClass.onPlayerRespawn(newPlayer));

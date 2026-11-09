@@ -23,6 +23,9 @@
     "main": [
       "com.evandev.reliable_requiem.fabric.ReliableRequiemMod"
     ],
+    "client": [
+      "com.evandev.reliable_requiem.fabric.client.LastRitesClient"
+    ],
     "modmenu": [
       "com.evandev.reliable_requiem.fabric.compat.ModMenuIntegration"
     ]

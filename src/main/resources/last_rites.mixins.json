@@ -18,6 +18,7 @@
   "client": [
     "AvatarRendererMixin",
     "AvatarRenderStateMixin",
+    "ClientMannequinMixin",
     "DeathScreenMixin",
     "LivingEntityRendererMixin",
     "PlayerModelMixin"

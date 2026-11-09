@@ -128,6 +128,7 @@ public final class Corpses {
 
         level.addFreshEntity(corpse);
         spawnHitbox(level, corpse);
+        Services.PLATFORM.announceFreshCorpse(corpse);
         Constants.LOG.info("Corpse of {} at {} {} {} in {}", player.getGameProfile().name(),
                 (int) Math.floor(pos.x), (int) Math.floor(y), (int) Math.floor(pos.z), level.dimension().identifier());
     }

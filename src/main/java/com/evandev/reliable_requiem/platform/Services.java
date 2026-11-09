@@ -105,6 +105,15 @@ public class Services {
     }
 
     /**
+     * Tells the players watching a corpse that was just made, so they see its body fall.
+     */
+    public void announceFreshCorpse(net.minecraft.world.entity.Entity corpse) {
+        //? if fabric {
+        com.evandev.reliable_requiem.fabric.CorpseNetworking.announce(corpse);
+        //?}
+    }
+
+    /**
      * Restores any kept accessories to the player upon cloning.
      */
     public void restoreKeptAccessories(ServerPlayer newPlayer) {
