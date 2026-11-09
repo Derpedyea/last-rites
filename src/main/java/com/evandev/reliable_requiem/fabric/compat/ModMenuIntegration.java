@@ -1,7 +1,7 @@
 package com.evandev.reliable_requiem.fabric.compat;
 
 //? if fabric {
-/*import com.evandev.reliable_requiem.config.YaclConfigIntegration;
+import com.evandev.reliable_requiem.config.YaclConfigIntegration;
 import com.evandev.reliable_requiem.platform.Services;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -15,4 +15,4 @@ public class ModMenuIntegration implements ModMenuApi {
         return YaclConfigIntegration::createScreen;
     }
 }
-*///?}
+//?}

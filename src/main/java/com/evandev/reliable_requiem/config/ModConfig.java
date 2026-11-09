@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ModConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final File CONFIG_FILE = Services.PLATFORM.getConfigDirectory().resolve("reliable_requiem.json").toFile();
+    private static final File CONFIG_FILE = Services.PLATFORM.getConfigDirectory().resolve("last_rites.json").toFile();
     private static ModConfig INSTANCE;
 
     @SerializedName("enabled")
@@ -103,7 +103,7 @@ public class ModConfig {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
                 INSTANCE = GSON.fromJson(reader, ModConfig.class);
             } catch (Exception e) {
-                Constants.LOG.error("Failed to load reliable_requiem.json", e);
+                Constants.LOG.error("Failed to load last_rites.json", e);
                 INSTANCE = new ModConfig();
                 save();
             }
@@ -117,7 +117,7 @@ public class ModConfig {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
             GSON.toJson(INSTANCE, writer);
         } catch (IOException e) {
-            Constants.LOG.error("Failed to save reliable_requiem.json", e);
+            Constants.LOG.error("Failed to save last_rites.json", e);
         }
     }
 }

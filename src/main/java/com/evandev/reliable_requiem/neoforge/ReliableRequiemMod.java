@@ -1,7 +1,7 @@
 package com.evandev.reliable_requiem.neoforge;
 
 //? if neoforge {
-import com.evandev.reliable_requiem.CommonClass;
+/*import com.evandev.reliable_requiem.CommonClass;
 import com.evandev.reliable_requiem.Constants;
 import com.evandev.reliable_requiem.modules.ModEffects;
 import com.evandev.reliable_requiem.modules.ModItems;
@@ -30,10 +30,10 @@ public class ReliableRequiemMod {
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, ReliableRequiemMod::onPlayerRespawn);
 
         //? if >=26.1 {
-        /*if (FMLEnvironment.getDist().isClient()) {
-        *///?} else {
-        if (FMLEnvironment.dist.isClient()) {
-        //?}
+        if (FMLEnvironment.getDist().isClient()) {
+        //?} else {
+        /^if (FMLEnvironment.dist.isClient()) {
+        ^///?}
             ClientConfigSetup.register(modContainer);
         }
     }
@@ -54,4 +54,4 @@ public class ReliableRequiemMod {
         }
     }
 }
-//?}
+*///?}

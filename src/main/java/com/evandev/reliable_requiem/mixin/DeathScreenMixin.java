@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //? if >=26.1 {
-/*import net.minecraft.client.gui.GuiGraphicsExtractor;
-*///?} else {
-import net.minecraft.client.gui.GuiGraphics;
-//?}
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+//?} else {
+/*import net.minecraft.client.gui.GuiGraphics;
+*///?}
 
 @Mixin(DeathScreen.class)
 public abstract class DeathScreenMixin extends Screen {
@@ -28,22 +28,22 @@ public abstract class DeathScreenMixin extends Screen {
     }
 
     //? if >=26.1 {
-    /*@Inject(method = "extractRenderState", at = @At("TAIL"))
+    @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void reliableRequiem$onRender(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         Component deathCoordsText = reliableRequiem$getDeathCoordsText();
         if (deathCoordsText != null) {
             graphics.centeredText(this.font, deathCoordsText, this.width / 2, 115, 0xFFFFFFFF);
         }
     }
-    *///?} else {
-    @Inject(method = "render", at = @At("TAIL"))
+    //?} else {
+    /*@Inject(method = "render", at = @At("TAIL"))
     private void reliableRequiem$onRender(GuiGraphics graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         Component deathCoordsText = reliableRequiem$getDeathCoordsText();
         if (deathCoordsText != null) {
             graphics.drawCenteredString(this.font, deathCoordsText, this.width / 2, 115, 0xFFFFFFFF);
         }
     }
-    //?}
+    *///?}
 
     @Unique
     private static Component reliableRequiem$getDeathCoordsText() {

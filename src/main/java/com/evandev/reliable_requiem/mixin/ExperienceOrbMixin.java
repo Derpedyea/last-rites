@@ -21,12 +21,12 @@ public abstract class ExperienceOrbMixin extends Entity {
     }
 
     //? if >=26.1 {
-    /*@Inject(method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;I)V", at = @At("TAIL"))
+    @Inject(method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;I)V", at = @At("TAIL"))
     private void reliableRequiem$condenseExperience(Level level, Vec3 pos, Vec3 roughly, int value, CallbackInfo ci) {
-    *///?} else {
-    @Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDI)V", at = @At("TAIL"))
+    //?} else {
+    /*@Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDI)V", at = @At("TAIL"))
     private void reliableRequiem$condenseExperience(Level level, double x, double y, double z, int value, CallbackInfo ci) {
-    //?}
+    *///?}
         reliableRequiem$applySpreadMultiplier(level);
     }
 

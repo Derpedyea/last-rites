@@ -17,7 +17,7 @@ plugins {
     id("dev.kikugie.loom-back-compat") version "0.3"
 }
 
-rootProject.name = "Reliable-Requiem"
+rootProject.name = "Last-Rites"
 
 stonecutter {
     create(rootProject) {
@@ -26,12 +26,9 @@ stonecutter {
                 version("$version-$it", version).buildscript = "build.$it.gradle.kts"
             }
 
-        match("1.20.1", "fabric", "forge")
-        match("1.21.1", "fabric", "neoforge")
-        match("26.1", "fabric", "neoforge")
-        match("26.2", "fabric", "neoforge")
-        match("26.3", "fabric", "neoforge")
+        // Last Rites builds only the 26.3 Fabric target (see README).
+        match("26.3", "fabric")
 
-        vcsVersion = "1.21.1-neoforge"
+        vcsVersion = "26.3-fabric"
     }
 }

@@ -1,7 +1,7 @@
 package com.evandev.reliable_requiem.neoforge.client;
 
 //? if neoforge {
-import com.evandev.reliable_requiem.config.YaclConfigIntegration;
+/*import com.evandev.reliable_requiem.config.YaclConfigIntegration;
 import com.evandev.reliable_requiem.platform.Services;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -12,4 +12,4 @@ public class ClientConfigSetup {
         container.registerExtensionPoint(IConfigScreenFactory.class, (c, parent) -> YaclConfigIntegration.createScreen(parent));
     }
 }
-//?}
+*///?}

@@ -14,12 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //? if >=26.1 {
-/*import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-*///?} else {
-import net.minecraft.nbt.CompoundTag;
-//?}
+//?} else {
+/*import net.minecraft.nbt.CompoundTag;
+*///?}
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin implements IRequiemItem {
@@ -58,12 +58,12 @@ public abstract class ItemEntityMixin implements IRequiemItem {
     }
 
     //? if >=26.1 {
-    /*@Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
     private void reliableRequiem$onHurt(ServerLevel level, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-    *///?} else {
-    @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
+    //?} else {
+    /*@Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     private void reliableRequiem$onHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-    //?}
+    *///?}
         if (ModConfig.get().enabled &&
                 ModConfig.get().explosionResistantDeathDrops &&
                 this.reliableRequiem$droppedOnDeath &&
@@ -74,7 +74,7 @@ public abstract class ItemEntityMixin implements IRequiemItem {
     }
 
     //? if >=26.1 {
-    /*@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void reliableRequiem$onSave(ValueOutput output, CallbackInfo ci) {
         if (this.reliableRequiem$droppedOnDeath) {
             output.putBoolean("ReliableRequiem_DeathDrop", true);
@@ -85,8 +85,8 @@ public abstract class ItemEntityMixin implements IRequiemItem {
     private void reliableRequiem$onRead(ValueInput input, CallbackInfo ci) {
         this.reliableRequiem$droppedOnDeath = input.getBooleanOr("ReliableRequiem_DeathDrop", false);
     }
-    *///?} else {
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    //?} else {
+    /*@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void reliableRequiem$onSave(CompoundTag compound, CallbackInfo ci) {
         if (this.reliableRequiem$droppedOnDeath) {
             compound.putBoolean("ReliableRequiem_DeathDrop", true);
@@ -97,5 +97,5 @@ public abstract class ItemEntityMixin implements IRequiemItem {
     private void reliableRequiem$onRead(CompoundTag compound, CallbackInfo ci) {
         this.reliableRequiem$droppedOnDeath = compound.getBoolean("ReliableRequiem_DeathDrop");
     }
-    //?}
+    *///?}
 }

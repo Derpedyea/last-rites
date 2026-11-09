@@ -14,10 +14,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 //? if >=26.1 {
-/*import net.minecraft.world.InteractionResult;
-*///?} else {
-import net.minecraft.world.InteractionResultHolder;
-//?}
+import net.minecraft.world.InteractionResult;
+//?} else {
+/*import net.minecraft.world.InteractionResultHolder;
+*///?}
 
 public abstract class CapacityCrystalItem extends Item {
 
@@ -43,19 +43,19 @@ public abstract class CapacityCrystalItem extends Item {
 
     @Override
     //? if >=26.1 {
-    /*public InteractionResult use(Level level, Player player, InteractionHand hand) {
-    *///?} else {
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-    //?}
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    //?} else {
+    /*public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    *///?}
         ItemStack itemStack = player.getItemInHand(hand);
 
         AttributeInstance attribute = getAttribute(player);
         if (attribute == null) {
             //? if >=26.1 {
-            /*return InteractionResult.PASS;
-            *///?} else {
-            return InteractionResultHolder.pass(itemStack);
-            //?}
+            return InteractionResult.PASS;
+            //?} else {
+            /*return InteractionResultHolder.pass(itemStack);
+            *///?}
         }
 
         double current = attribute.getBaseValue();
@@ -64,16 +64,16 @@ public abstract class CapacityCrystalItem extends Item {
             if (!level.isClientSide()) {
                 Component message = Component.translatable(getLimitReachedMessage());
                 //? if >=26.1 {
-                /*player.sendOverlayMessage(message);
-                *///?} else {
-                player.displayClientMessage(message, true);
-                //?}
+                player.sendOverlayMessage(message);
+                //?} else {
+                /*player.displayClientMessage(message, true);
+                *///?}
             }
             //? if >=26.1 {
-            /*return InteractionResult.FAIL;
-            *///?} else {
-            return InteractionResultHolder.fail(itemStack);
-            //?}
+            return InteractionResult.FAIL;
+            //?} else {
+            /*return InteractionResultHolder.fail(itemStack);
+            *///?}
         }
 
         if (!level.isClientSide()) {
@@ -96,9 +96,9 @@ public abstract class CapacityCrystalItem extends Item {
         }
 
         //? if >=26.1 {
-        /*return InteractionResult.SUCCESS;
-        *///?} else {
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
-        //?}
+        return InteractionResult.SUCCESS;
+        //?} else {
+        /*return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        *///?}
     }
 }

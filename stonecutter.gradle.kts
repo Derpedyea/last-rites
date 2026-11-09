@@ -7,7 +7,7 @@ plugins {
     id("org.moddedmc.wiki.toolkit") version "0.4.1"
 }
 
-stonecutter active "1.21.1-neoforge"
+stonecutter active "26.3-fabric"
 
 stonecutter parameters {
     val loader = node.metadata.project.substringAfterLast('-')

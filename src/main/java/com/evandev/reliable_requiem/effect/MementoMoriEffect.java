@@ -8,14 +8,14 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 //? if >=1.21 {
 import com.evandev.reliable_requiem.Constants;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 //?}
 
 public class MementoMoriEffect extends MobEffect {
 
     //? if >=1.21 {
-    private static final ResourceLocation MOVEMENT_MOD_ID = Constants.id("memento_mori_movement");
-    private static final ResourceLocation DAMAGE_MOD_ID = Constants.id("memento_mori_damage");
+    private static final Identifier MOVEMENT_MOD_ID = Constants.id("memento_mori_movement");
+    private static final Identifier DAMAGE_MOD_ID = Constants.id("memento_mori_damage");
     //?} else {
     /*private static final String MOVEMENT_MOD_ID = "4a6f8f0e-1d7b-4c52-9a2e-3b1f6c2d8e01";
     private static final String DAMAGE_MOD_ID = "9c3e2b7a-5f41-4d08-8b6a-7e2d1c4f9a02";

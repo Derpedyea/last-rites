@@ -26,14 +26,14 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import java.util.Random;
 
 //? if >=26.3 {
-/*import net.minecraft.util.Prediction;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.item.ItemEntity;
-*///?}
-//? if >=26.1 {
-/*import net.minecraft.world.level.gamerules.GameRules;
-*///?} else {
-import net.minecraft.world.level.GameRules;
 //?}
+//? if >=26.1 {
+import net.minecraft.world.level.gamerules.GameRules;
+//?} else {
+/*import net.minecraft.world.level.GameRules;
+*///?}
 //? if <1.21 {
 /*import net.minecraft.world.item.enchantment.EnchantmentHelper;
 *///?}
@@ -156,7 +156,7 @@ public class RequiemModules {
         if (!ModConfig.get().enabled || stack.isEmpty()) return true;
         ModConfig config = ModConfig.get();
 
-        String currentDimension = player.level().dimension().location().toString();
+        String currentDimension = player.level().dimension().identifier().toString();
         if (config.bypassKeepInventoryDimensions.contains(currentDimension)) {
             return true;
         }
@@ -194,12 +194,12 @@ public class RequiemModules {
 
                 if (damageAmount > 0) {
                     //? if >=26.1 {
-                    /*stack.hurtAndBreak(damageAmount, player.level(), player, (brokenItem) -> {
+                    stack.hurtAndBreak(damageAmount, player.level(), player, (brokenItem) -> {
                     });
-                    *///?} else if >=1.21 {
-                    stack.hurtAndBreak(damageAmount, player.serverLevel(), player, (brokenItem) -> {
+                    //?} else if >=1.21 {
+                    /*stack.hurtAndBreak(damageAmount, player.serverLevel(), player, (brokenItem) -> {
                     });
-                    //?} else {
+                    *///?} else {
                     /*stack.hurtAndBreak(damageAmount, player, (brokenPlayer) -> {
                     });
                     *///?}
@@ -251,29 +251,29 @@ public class RequiemModules {
 
     public static boolean isKeepInventory(ServerPlayer player) {
         //? if >=26.1 {
-        /*return player.level().getGameRules().get(GameRules.KEEP_INVENTORY);
-        *///?} else {
-        return player.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
-        //?}
+        return player.level().getGameRules().get(GameRules.KEEP_INVENTORY);
+        //?} else {
+        /*return player.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
+        *///?}
     }
 
     public static void dropDeathItem(Player player, ItemStack stack) {
         //? if >=26.3 {
-        /*ItemEntity itemEntity = player.createItemStackToDrop(stack, true, false);
+        ItemEntity itemEntity = player.createItemStackToDrop(stack, true, false);
         if (itemEntity != null) {
             player.level().addFreshEntity(itemEntity);
         }
-        *///?} else {
-        player.drop(stack, true, false);
-        //?}
+        //?} else {
+        /*player.drop(stack, true, false);
+        *///?}
     }
 
     public static void returnItem(Player player, ItemStack stack) {
         //? if >=26.3 {
-        /*player.getInventory().placeItemBackInInventory(stack, Prediction.SERVER_ONLY);
-        *///?} else {
-        player.getInventory().placeItemBackInInventory(stack);
-        //?}
+        player.getInventory().placeItemBackInInventory(stack, Prediction.SERVER_ONLY);
+        //?} else {
+        /*player.getInventory().placeItemBackInInventory(stack);
+        *///?}
     }
 
     public static int calculateDroppedExperience(Player player, int originalDrop) {

@@ -1,7 +1,7 @@
 package com.evandev.reliable_requiem.compat;
 
 //? if forgelike {
-import com.evandev.reliable_requiem.api.IPlayerKeptItems;
+/*import com.evandev.reliable_requiem.api.IPlayerKeptItems;
 import com.evandev.reliable_requiem.modules.RequiemModules;
 import com.evandev.reliable_requiem.util.NbtHelper;
 import net.minecraft.nbt.CompoundTag;
@@ -96,4 +96,4 @@ public class CuriosCompat {
         ((IPlayerKeptItems) player).reliableRequiem$setKeptAccessories(keptAcc);
     }
 }
-//?}
+*///?}

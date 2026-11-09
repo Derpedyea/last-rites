@@ -1,7 +1,7 @@
 package com.evandev.reliable_requiem.fabric;
 
 //? if fabric {
-/*import com.evandev.reliable_requiem.CommonClass;
+import com.evandev.reliable_requiem.CommonClass;
 import com.evandev.reliable_requiem.modules.ModEffects;
 import com.evandev.reliable_requiem.modules.ModItems;
 import net.fabricmc.api.ModInitializer;
@@ -19,4 +19,4 @@ public class ReliableRequiemMod implements ModInitializer {
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> CommonClass.onPlayerRespawn(newPlayer));
     }
 }
-*///?}
+//?}

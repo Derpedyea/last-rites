@@ -2,8 +2,8 @@ package com.evandev.reliable_requiem;
 
 import com.evandev.reliable_requiem.api.IPlayerKeptItems;
 //? if <26.1 {
-import com.evandev.reliable_requiem.compat.AccessoriesCompat;
-//?}
+/*import com.evandev.reliable_requiem.compat.AccessoriesCompat;
+*///?}
 import com.evandev.reliable_requiem.config.ModConfig;
 import com.evandev.reliable_requiem.modules.RequiemModules;
 import com.evandev.reliable_requiem.platform.Services;
@@ -20,10 +20,10 @@ public class CommonClass {
         ModConfig.get();
 
         //? if <26.1 {
-        if (Services.PLATFORM.isModLoaded("accessories")) {
+        /*if (Services.PLATFORM.isModLoaded("accessories")) {
             AccessoriesCompat.register();
         }
-        //?}
+        *///?}
     }
 
     public static void onPlayerClone(ServerPlayer oldPlayer, ServerPlayer newPlayer, boolean wasDeath) {

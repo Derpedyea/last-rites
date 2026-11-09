@@ -1,27 +1,27 @@
 package com.evandev.reliable_requiem.platform;
 
 //? if <26.1 {
-import com.evandev.reliable_requiem.compat.AccessoriesCompat;
-//?}
+/*import com.evandev.reliable_requiem.compat.AccessoriesCompat;
+*///?}
 //? if forgelike {
-import com.evandev.reliable_requiem.compat.CuriosCompat;
-//?}
+/*import com.evandev.reliable_requiem.compat.CuriosCompat;
+*///?}
 //? if forgelike && <26.1 {
-import com.evandev.reliable_requiem.compat.HeartCrystalsCompat;
-//?}
+/*import com.evandev.reliable_requiem.compat.HeartCrystalsCompat;
+*///?}
 //? if fabric && <26.1 {
 /*import com.evandev.reliable_requiem.compat.TrinketsCompat;
 *///?}
 //? if >=26.1 {
-/*import com.evandev.reliable_requiem.compat.TrinketsUpdatedCompat;
-*///?}
+import com.evandev.reliable_requiem.compat.TrinketsUpdatedCompat;
+//?}
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 //? if fabric {
-/*import net.fabricmc.api.EnvType;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-*///?}
+//?}
 //? if forge {
 /*import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
@@ -29,11 +29,11 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 *///?}
 //? if neoforge {
-import net.neoforged.api.distmarker.Dist;
+/*import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.FMLPaths;
-//?}
+*///?}
 
 import java.nio.file.Path;
 
@@ -42,32 +42,32 @@ public class Services {
 
     public String getPlatformName() {
         //? if fabric {
-        /*return "Fabric";
-        *///?}
+        return "Fabric";
+        //?}
         //? if forge {
         /*return "Forge";
         *///?}
         //? if neoforge {
-        return "NeoForge";
-        //?}
+        /*return "NeoForge";
+        *///?}
     }
 
     public boolean isModLoaded(String modId) {
         //? if fabric {
-        /*return FabricLoader.getInstance().isModLoaded(modId);
-        *///?}
-        //? if forgelike {
-        return ModList.get().isLoaded(modId);
+        return FabricLoader.getInstance().isModLoaded(modId);
         //?}
+        //? if forgelike {
+        /*return ModList.get().isLoaded(modId);
+        *///?}
     }
 
     public Path getConfigDirectory() {
         //? if fabric {
-        /*return FabricLoader.getInstance().getConfigDir();
-        *///?}
-        //? if forgelike {
-        return FMLPaths.CONFIGDIR.get();
+        return FabricLoader.getInstance().getConfigDir();
         //?}
+        //? if forgelike {
+        /*return FMLPaths.CONFIGDIR.get();
+        *///?}
     }
 
     /**
@@ -80,15 +80,15 @@ public class Services {
         }
         *///?}
         //? if >=26.1 {
-        /*if (isModLoaded("trinkets_updated")) {
+        if (isModLoaded("trinkets_updated")) {
             TrinketsUpdatedCompat.handleAccessoryDeath(player);
         }
-        *///?}
+        //?}
         //? if forgelike {
-        if (usesCuriosCompat()) {
+        /*if (usesCuriosCompat()) {
             CuriosCompat.handleAccessoryDeath(player);
         }
-        //?}
+        *///?}
     }
 
     /**
@@ -96,20 +96,20 @@ public class Services {
      */
     public void restoreKeptAccessories(ServerPlayer newPlayer) {
         //? if <26.1 {
-        if (isModLoaded("accessories")) {
+        /*if (isModLoaded("accessories")) {
             AccessoriesCompat.restoreKeptAccessories(newPlayer);
         }
-        //?}
+        *///?}
         //? if fabric && <26.1 {
         /*if (isModLoaded("trinkets")) {
             TrinketsCompat.restoreKeptAccessories(newPlayer);
         }
         *///?}
         //? if forgelike {
-        if (usesCuriosCompat()) {
+        /*if (usesCuriosCompat()) {
             CuriosCompat.restoreKeptAccessories(newPlayer);
         }
-        //?}
+        *///?}
     }
 
     /**
@@ -125,9 +125,9 @@ public class Services {
      */
     public void updateHeartCrystalsHealth(Player player, double maxHealth) {
         //? if forgelike && <26.1 {
-        if (isModLoaded("heart_crystals")) {
+        /*if (isModLoaded("heart_crystals")) {
             HeartCrystalsCompat.updateHeartCrystalsHealth(player, maxHealth);
         }
-        //?}
+        *///?}
     }
 }

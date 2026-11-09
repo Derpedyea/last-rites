@@ -27,19 +27,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 //? if >=26.1 {
-/*import com.mojang.serialization.Codec;
+import com.mojang.serialization.Codec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-*///?} else {
-import com.evandev.reliable_requiem.Constants;
+//?} else {
+/*import com.evandev.reliable_requiem.Constants;
 import com.evandev.reliable_requiem.api.IRequiemItem;
 import com.evandev.reliable_requiem.config.ModConfig;
 import com.evandev.reliable_requiem.util.NbtHelper;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.Vec3;
-//?}
+*///?}
 //? if >=1.21 {
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -124,7 +124,7 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
     }
 
     //? if <26.1 {
-    @Inject(
+    /*@Inject(
             method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;",
             at = @At("RETURN")
     )
@@ -144,14 +144,14 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
             }
         }
     }
-    //?}
+    *///?}
 
     @Inject(method = "dropEquipment", at = @At("HEAD"), cancellable = true)
     //? if >=26.1 {
-    /*private void onDropEquipment(ServerLevel level, CallbackInfo ci) {
-    *///?} else {
-    private void onDropEquipment(CallbackInfo ci) {
-    //?}
+    private void onDropEquipment(ServerLevel level, CallbackInfo ci) {
+    //?} else {
+    /*private void onDropEquipment(CallbackInfo ci) {
+    *///?}
         Player player = (Player) (Object) this;
         if (!(player instanceof ServerPlayer serverPlayer)) return;
 
@@ -196,7 +196,7 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
     }
 
     //? if >=26.1 {
-    /*@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void reliableRequiem$saveAdditionalData(ValueOutput output, CallbackInfo ci) {
         Player player = (Player) (Object) this;
 
@@ -250,8 +250,8 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
             maxHealthAttr.setBaseValue(savedMaxHealth);
         }
     }
-    *///?} else {
-    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    //?} else {
+    /*@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void reliableRequiem$saveAdditionalData(CompoundTag compound, CallbackInfo ci) {
         Player player = (Player) (Object) this;
 
@@ -272,7 +272,7 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
             compound.putLong("ReliableRequiem_DeathPos", this.reliableRequiem$lastDeathPos.asLong());
         }
         if (this.reliableRequiem$lastDeathDimension != null) {
-            compound.putString("ReliableRequiem_DeathDim", this.reliableRequiem$lastDeathDimension.location().toString());
+            compound.putString("ReliableRequiem_DeathDim", this.reliableRequiem$lastDeathDimension.identifier().toString());
         }
         if (this.reliableRequiem$lastDamageSource != null) {
             compound.putString("ReliableRequiem_DamageSource", this.reliableRequiem$lastDamageSource);
@@ -327,15 +327,15 @@ public abstract class PlayerMixin implements IPlayerKeptItems {
             }
         }
     }
-    //?}
+    *///?}
 
     //? if >=26.1 {
-    /*@Inject(method = "getBaseExperienceReward", at = @At("RETURN"), cancellable = true)
-    protected void onGetExperienceReward(ServerLevel level, CallbackInfoReturnable<Integer> cir) {
-    *///?} else if >=1.21 {
     @Inject(method = "getBaseExperienceReward", at = @At("RETURN"), cancellable = true)
+    protected void onGetExperienceReward(ServerLevel level, CallbackInfoReturnable<Integer> cir) {
+    //?} else if >=1.21 {
+    /*@Inject(method = "getBaseExperienceReward", at = @At("RETURN"), cancellable = true)
     protected void onGetExperienceReward(CallbackInfoReturnable<Integer> cir) {
-    //?} else {
+    *///?} else {
     /*@Inject(method = "getExperienceReward", at = @At("RETURN"), cancellable = true)
     protected void onGetExperienceReward(CallbackInfoReturnable<Integer> cir) {
     *///?}

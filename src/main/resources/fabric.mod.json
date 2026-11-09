@@ -7,10 +7,14 @@
   "authors": [
     "${mod_author}"
   ],
+  "contributors": [
+    "Evan (Reliable Requiem)",
+    "TheIllusiveC4 (Corpse Complex)"
+  ],
   "contact": {
-    "homepage": "https://github.com/evanbones/Reliable-Requiem",
-    "sources": "https://github.com/evanbones/Reliable-Requiem",
-    "issues": "https://github.com/evanbones/Reliable-Requiem/issues"
+    "homepage": "https://github.com/Derpedyea/last-rites",
+    "sources": "https://github.com/Derpedyea/last-rites",
+    "issues": "https://github.com/Derpedyea/last-rites/issues"
   },
   "license": "${license}",
   "icon": "${mod_id}.png",
@@ -31,6 +35,9 @@
     "fabric-api": "*",
     "minecraft": "${minecraft}",
     "java": ">=${java_version}"
+  },
+  "breaks": {
+    "reliable_requiem": "*"
   },
   "suggests": {
     "yet_another_config_lib_v3": ">=${yacl_version}"

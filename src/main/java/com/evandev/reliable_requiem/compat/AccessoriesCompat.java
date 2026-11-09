@@ -1,7 +1,7 @@
 package com.evandev.reliable_requiem.compat;
 
 //? if <26.1 {
-import com.evandev.reliable_requiem.api.IPlayerKeptItems;
+/*import com.evandev.reliable_requiem.api.IPlayerKeptItems;
 import com.evandev.reliable_requiem.modules.RequiemModules;
 import com.evandev.reliable_requiem.util.NbtHelper;
 import io.wispforest.accessories.api.AccessoriesCapability;
@@ -85,4 +85,4 @@ public class AccessoriesCompat {
         ((IPlayerKeptItems) player).reliableRequiem$setKeptAccessories(keptAcc);
     }
 }
-//?}
+*///?}

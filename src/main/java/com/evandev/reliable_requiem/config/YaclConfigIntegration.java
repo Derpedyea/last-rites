@@ -147,10 +147,10 @@ public class YaclConfigIntegration {
 
     private static ListOption<String> stringList(String key, Supplier<List<String>> getter, Consumer<List<String>> setter) {
         //? if >=26.1 {
-        /*return ListOption.<String>createBuilder(String.class)
-        *///?} else {
-        return ListOption.<String>createBuilder()
-        //?}
+        return ListOption.<String>createBuilder(String.class)
+        //?} else {
+        /*return ListOption.<String>createBuilder()
+        *///?}
                 .name(Component.translatable(PREFIX + key))
                 .description(OptionDescription.of(Component.translatable(PREFIX + key + ".tooltip")))
                 .binding(new ArrayList<>(), getter, val -> setter.accept(new ArrayList<>(val)))

@@ -17,19 +17,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //? if >=26.3 {
-/*import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-*///?}
+//?}
 
 @Mixin(Block.class)
 public class BlockMixin {
 
     @Inject(method = "playerDestroy", at = @At("TAIL"))
     //? if >=26.3 {
-    /*private void reliableRequiem$onSpawnerPlayerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
-    *///?} else {
-    private void reliableRequiem$onSpawnerPlayerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
-    //?}
+    private void reliableRequiem$onSpawnerPlayerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
+    //?} else {
+    /*private void reliableRequiem$onSpawnerPlayerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
+    *///?}
         reliableRequiem$dropShards(level, player, pos, state);
     }
 
