@@ -8,6 +8,7 @@ import com.evandev.reliable_requiem.mixin.MannequinAccessor;
 import com.evandev.reliable_requiem.modules.RequiemModules;
 import com.evandev.reliable_requiem.platform.Services;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
@@ -27,7 +28,9 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +94,8 @@ public final class Corpses {
         corpse.setPose(Pose.SLEEPING);
         corpse.setNoGravity(true);
         corpse.setPermanentlyInvulnerable(true);
-        corpse.setCustomName(Component.translatableWithFallback("entity.last_rites.corpse", "%s's corpse", player.getName()));
-        corpse.setCustomNameVisible(true);
+        // The name is the client's corpse marker and the menu title; the hitbox shows it, centered over the body.
+        corpse.setCustomName(Component.translatableWithFallback(NAME_KEY, "%s's corpse", player.getName()));
 
         Vec3 pos = player.position();
         double y = pos.y;
@@ -101,9 +104,13 @@ public final class Corpses {
             int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING, (int) Math.floor(pos.x), (int) Math.floor(pos.z));
             y = top > level.getMinY() ? top : level.getMinY() + 1;
         }
-        corpse.snapTo(pos.x, y, pos.z, player.getYRot(), 0.0F);
-        corpse.setYBodyRot(player.getYRot());
-        corpse.setYHeadRot(player.getYRot());
+        // A lying body is drawn from its feet, so the feet go half a body back to center it where the player died.
+        float yaw = clearYaw(level, pos.x, y, pos.z, player.getYRot());
+        Vec3 head = headDirection(yaw);
+        corpse.snapTo(pos.x - head.x * HALF_BODY, y, pos.z - head.z * HALF_BODY, yaw, 0.0F);
+        // Clients take a spawned mannequin's body rotation from its head rotation, so the two must match.
+        corpse.setYBodyRot(yaw);
+        corpse.setYHeadRot(yaw);
 
         ICorpse data = (ICorpse) corpse;
         data.lastRites$makeCorpse(player.getUUID(), player.getGameProfile().name(), level.getGameTime());
@@ -125,21 +132,48 @@ public final class Corpses {
                 (int) Math.floor(pos.x), (int) Math.floor(y), (int) Math.floor(pos.z), level.dimension().identifier());
     }
 
+    public static final String NAME_KEY = "entity.last_rites.corpse";
     private static final String HITBOX_TAG = "last_rites.corpse_hitbox=";
+    /** Half the length of a lying player model. */
+    private static final double HALF_BODY = 0.9;
+
+    /** Where a lying body's head points from its feet. */
+    private static Vec3 headDirection(float yaw) {
+        double rad = Math.toRadians(yaw);
+        return new Vec3(-Math.cos(rad), 0.0, Math.sin(rad));
+    }
+
+    /** The player's facing, or a quarter turn of it if that keeps the body out of a wall. */
+    private static float clearYaw(ServerLevel level, double x, double y, double z, float yaw) {
+        for (int turn = 0; turn < 2; turn++) { // the body's box is symmetric, so half turns change nothing
+            float candidate = yaw + turn * 90.0F;
+            Vec3 h = headDirection(candidate).scale(HALF_BODY);
+            AABB body = new AABB(x - h.x, y, z - h.z, x + h.x, y + 0.3, z + h.z).inflate(0.25, 0.0, 0.25);
+            if (level.noCollision(body.move(0.0, 0.01, 0.0))) return candidate;
+        }
+        return yaw;
+    }
+
+    /** True for the name every corpse gets; clients use it to tell corpses from plain mannequins. */
+    public static boolean isCorpseName(@Nullable Component name) {
+        return name != null && name.getContents() instanceof TranslatableContents t && NAME_KEY.equals(t.getKey());
+    }
 
     /**
      * A lying mannequin's own hitbox is a 0.2 block cube at its feet, so the corpse gets an invisible interaction entity
-     * over its body. Its head points along (-cos yaw, 0, sin yaw) from its feet.
+     * over its body. It also shows the corpse's name, since the mannequin's own name tag would float over its feet.
      */
     private static void spawnHitbox(ServerLevel level, Mannequin corpse) {
         Interaction hitbox = EntityTypes.INTERACTION.create(level, EntitySpawnReason.TRIGGERED);
         if (hitbox == null) return;
-        double yaw = Math.toRadians(corpse.getYRot());
-        hitbox.snapTo(corpse.getX() - Math.cos(yaw) * 0.9, corpse.getY(), corpse.getZ() + Math.sin(yaw) * 0.9, 0.0F, 0.0F);
+        Vec3 h = headDirection(corpse.getYRot()).scale(HALF_BODY);
+        hitbox.snapTo(corpse.getX() + h.x, corpse.getY(), corpse.getZ() + h.z, 0.0F, 0.0F);
         InteractionAccessor a = (InteractionAccessor) hitbox;
         a.lastRites$setWidth(1.2F);
         a.lastRites$setHeight(0.5F);
         a.lastRites$setResponse(true);
+        hitbox.setCustomName(corpse.getCustomName());
+        hitbox.setCustomNameVisible(true);
         hitbox.addTag(HITBOX_TAG + corpse.getStringUUID());
         level.addFreshEntity(hitbox);
         ((ICorpse) corpse).lastRites$setHitbox(hitbox.getUUID());

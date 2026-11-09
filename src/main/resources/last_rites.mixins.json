@@ -16,7 +16,11 @@
     "ServerPlayerMixin"
   ],
   "client": [
-    "DeathScreenMixin"
+    "AvatarRendererMixin",
+    "AvatarRenderStateMixin",
+    "DeathScreenMixin",
+    "LivingEntityRendererMixin",
+    "PlayerModelMixin"
   ],
   "server": [],
   "injectors": {

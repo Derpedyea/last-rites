@@ -12,8 +12,9 @@ penalties and adds corpses. It targets **Minecraft 26.3 on Fabric** only.
 
 ## Corpses
 
-* **Where you fell:** whatever Reliable Requiem doesn't let you keep goes into a corpse wearing your skin, lying where
-  you died. Your dropped experience goes into it too.
+* **Where you fell:** whatever Reliable Requiem doesn't let you keep goes into a corpse wearing your skin, lying
+  centered on the spot where you died (turned aside if a wall is in the way). Your dropped experience goes into it too.
+* **Looks dead:** ashen, greyed skin, head rolled to one side, arms and legs slack.
 * **Right-click** to open it. Items are laid out like your inventory: main rows, hotbar, armor and offhand, then
   accessories on the bottom row.
 * **Sneak + right-click** puts everything back into the slot it came from, including armor and
@@ -22,8 +23,8 @@ penalties and adds corpses. It targets **Minecraft 26.3 on Fabric** only.
 * **Safe:** corpses can't be hurt, pushed or burned and never despawn. They float where you died (in water, in the air).
   Die in the void and the corpse lies on the top block of that column instead. An empty corpse disappears.
 * **Locked to you** for 30 minutes of game time, then anyone can open it. Server operators can always open corpses.
-* Corpses are vanilla mannequins plus a vanilla interaction entity over the body (so it's easy to click), so they
-  need nothing extra on the client to render.
+* Corpses are vanilla mannequins plus a vanilla interaction entity over the body (so it's easy to click, and the name
+  floats over the middle). The ashen skin and limp pose are drawn by the mod on the client.
 * If a corpse is killed anyway (a creative player, `/kill`), it drops everything it holds.
 
 ![The corpse inventory](docs/images/corpse_gui.png)
