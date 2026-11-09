@@ -5,6 +5,6 @@ import org.jetbrains.annotations.Nullable;
 
 /** Client mannequins that are corpses carry their ragdoll. */
 public interface IRagdollHolder {
-    /** The corpse's ragdoll, made the first time it's needed; null if this mannequin isn't a corpse. */
+    /** The corpse's ragdoll; null if this mannequin isn't a corpse, or while its body is still being settled. */
     @Nullable CorpseRagdoll lastRites$ragdoll();
 }

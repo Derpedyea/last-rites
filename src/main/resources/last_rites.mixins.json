@@ -19,6 +19,7 @@
     "AvatarRendererMixin",
     "AvatarRenderStateMixin",
     "ClientMannequinMixin",
+    "CubeListBuilderAccessor",
     "DeathScreenMixin",
     "LivingEntityRendererMixin",
     "PlayerModelMixin"

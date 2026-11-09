@@ -10,6 +10,11 @@ import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.world.entity.Avatar;
 import net.minecraft.world.entity.decoration.Mannequin;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.resources.Identifier;
+import com.evandev.reliable_requiem.api.IJointedModel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,7 +33,10 @@ public class AvatarRendererMixin {
         ICorpseRenderState corpse = (ICorpseRenderState) state;
         CorpseRagdoll ragdoll = corpse.lastRites$isCorpse() && entity instanceof IRagdollHolder holder ? holder.lastRites$ragdoll() : null;
         corpse.lastRites$setHasRagdoll(ragdoll != null);
-        if (ragdoll != null) ragdoll.pose(partialTicks, entity.getPosition(partialTicks), corpse.lastRites$ragdollPose());
+        if (ragdoll != null) {
+            Vec3 origin = entity.getPosition(partialTicks);
+            ragdoll.pose(partialTicks, origin.x, origin.y, origin.z, corpse.lastRites$ragdollPose());
+        }
     }
 
     /** A ragdoll places and turns the whole body itself, in place of the lying pose. */
@@ -39,7 +47,13 @@ public class AvatarRendererMixin {
         RagdollPose pose = corpse.lastRites$ragdollPose();
         poseStack.translate(pose.center.x, pose.center.y, pose.center.z);
         poseStack.rotate(pose.rotation);
-        poseStack.translate(0.0F, -CorpseRagdoll.TORSO_CENTER_Y, 0.0F);
+        poseStack.translate(0.0F, -CorpseRagdoll.torsoCenterY(), 0.0F);
         ci.cancel();
+    }
+
+    /** The first-person hand shares the model with corpses drawn earlier in the frame. */
+    @Inject(method = "renderHand", at = @At("HEAD"))
+    private void lastRites$wholeHand(PoseStack poseStack, SubmitNodeCollector collector, int light, Identifier skin, ModelPart arm, boolean sleeve, CallbackInfo ci) {
+        if (((AvatarRenderer) (Object) this).getModel() instanceof IJointedModel jointed) jointed.lastRites$wholeLimbs();
     }
 }

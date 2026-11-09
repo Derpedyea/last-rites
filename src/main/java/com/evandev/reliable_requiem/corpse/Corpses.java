@@ -19,6 +19,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Interaction;
+import net.minecraft.util.Mth;
+import com.evandev.reliable_requiem.corpse.ragdoll.CorpseRagdoll;
+import com.evandev.reliable_requiem.corpse.ragdoll.Ragdolls;
+import org.joml.Vector3d;
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -28,7 +33,6 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,7 +109,8 @@ public final class Corpses {
             y = top > level.getMinY() ? top : level.getMinY() + 1;
         }
         // A lying body is drawn from its feet, so the feet go half a body back to center it where the player died.
-        float yaw = clearYaw(level, pos.x, y, pos.z, player.getYRot());
+        // Clients get the yaw as a byte, and their ragdolls must start from the same one as the server's.
+        float yaw = Mth.unpackDegrees(Mth.packDegrees(player.getYRot()));
         Vec3 head = headDirection(yaw);
         corpse.snapTo(pos.x - head.x * HALF_BODY, y, pos.z - head.z * HALF_BODY, yaw, 0.0F);
         // Clients take a spawned mannequin's body rotation from its head rotation, so the two must match.
@@ -128,6 +133,7 @@ public final class Corpses {
 
         level.addFreshEntity(corpse);
         spawnHitbox(level, corpse);
+        moveHitboxOntoBody(level, corpse);
         Services.PLATFORM.announceFreshCorpse(corpse);
         Constants.LOG.info("Corpse of {} at {} {} {} in {}", player.getGameProfile().name(),
                 (int) Math.floor(pos.x), (int) Math.floor(y), (int) Math.floor(pos.z), level.dimension().identifier());
@@ -142,17 +148,6 @@ public final class Corpses {
     private static Vec3 headDirection(float yaw) {
         double rad = Math.toRadians(yaw);
         return new Vec3(-Math.cos(rad), 0.0, Math.sin(rad));
-    }
-
-    /** The player's facing, or a quarter turn of it if that keeps the body out of a wall. */
-    private static float clearYaw(ServerLevel level, double x, double y, double z, float yaw) {
-        for (int turn = 0; turn < 2; turn++) { // the body's box is symmetric, so half turns change nothing
-            float candidate = yaw + turn * 90.0F;
-            Vec3 h = headDirection(candidate).scale(HALF_BODY);
-            AABB body = new AABB(x - h.x, y, z - h.z, x + h.x, y + 0.3, z + h.z).inflate(0.25, 0.0, 0.25);
-            if (level.noCollision(body.move(0.0, 0.01, 0.0))) return candidate;
-        }
-        return yaw;
     }
 
     /** True for the name every corpse gets; clients use it to tell corpses from plain mannequins. */
@@ -178,6 +173,22 @@ public final class Corpses {
         hitbox.addTag(HITBOX_TAG + corpse.getStringUUID());
         level.addFreshEntity(hitbox);
         ((ICorpse) corpse).lastRites$setHitbox(hitbox.getUUID());
+    }
+
+    /**
+     * The body falls wherever the blocks take it (clients simulate the same fall), so once the server has worked out where
+     * it comes to rest, the hitbox moves over its torso.
+     */
+    private static void moveHitboxOntoBody(ServerLevel level, Mannequin corpse) {
+        CompletableFuture<CorpseRagdoll> settling = Ragdolls.settle(level, corpse);
+        if (settling == null) return;
+        settling.thenAcceptAsync(ragdoll -> {
+            UUID id = ((ICorpse) corpse).lastRites$getHitbox();
+            Entity hitbox = id != null && corpse.isAlive() ? level.getEntity(id) : null;
+            if (hitbox == null) return;
+            Vector3d torso = ragdoll.torso();
+            hitbox.setPos(torso.x, torso.y - 0.2, torso.z);
+        }, level.getServer());
     }
 
     /** Right-click on a corpse hitbox: open the corpse. Returns null for interaction entities that aren't hitboxes. */
